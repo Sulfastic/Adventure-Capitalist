@@ -1,4 +1,4 @@
-import user from '../data/UserData';
+import user from '../data/user/UserData';
 
 export default class Market {
   // registerManager() {

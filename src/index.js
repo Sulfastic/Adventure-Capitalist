@@ -1,6 +1,6 @@
-import userData from './data/UserData';
-import incomeBoosts from './data/IncomeBoosts';
-import managersAvailable from './data/ManagersAvailable';
+import userData from './data/user/UserData';
+import incomeBoosts from './data/income/IncomeBoosts';
+import managersAvailable from './data/managers/ManagersAvailable';
 import GameTimeData from './data/GameTimeData';
 import Market from './logic/Market';
 
