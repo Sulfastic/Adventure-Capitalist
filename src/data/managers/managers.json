@@ -2,11 +2,11 @@
   {
     "name": "Lemon Stand Manager",
     "incomeSourceUsage": "Lemon Stand",
-    "baseCost": 200
+    "baseCost": 10
   },
   {
     "name": "Newspaper Delivery Job Manager",
     "incomeSourceUsage": "Newspaper Delivery Job",
-    "baseCost": 500
+    "baseCost": 15
   }
 ]

@@ -1,29 +1,36 @@
-import userData from './data/user/UserData';
 import incomeBoosts from './data/income/IncomeBoosts';
-import managersAvailable from './data/managers/ManagersAvailable';
-import GameTimeData from './data/GameTimeData';
+import availableManagers from './data/managers/ManagersAvailable';
 import Market from './logic/Market';
+import user from './data/user/UserData';
+import employedManagers from './data/managers/EmployedManagers';
 
 const SPEED = 30 / 1000; // 30 fps
-const gameTimeData = new GameTimeData();
-
-function constructTimeSection() {
-  document.querySelector('#game-time').innerText = gameTimeData;
-}
 
 function constructIncome() {
-  document.querySelector('#user-income').innerText = userData;
+  document.querySelector('#user-income').innerText = user;
+}
+
+function constructBusinesses() {
+  const ul = document.querySelector('#owned-businesses');
+  ul.innerHTML = '';
+  Object.keys(user.inventory).forEach((name) => {
+    const li = document.createElement('li');
+    const business = user.getBusinessByName(name);
+    li.innerText = (`${name} business has an income of: $ ${business.totalIncome}`);
+    ul.appendChild(li);
+  });
 }
 
 function constructBoosts() {
   const list = document.querySelector('#powerup-options');
-  for (let i = 0, len = incomeBoosts.length; i < len; i += 1) {
-    const incomeBoost = incomeBoosts[i];
+  const {sources} = incomeBoosts;
+  for (let i = 0, len = sources.length; i < len; i += 1) {
+    const incomeBoost = sources[i];
     const jobButton = document.createElement('button');
     jobButton.innerText = 'sell goods';
     jobButton.onclick = () => {
       jobButton.disabled = true;
-      Market.workOnResource(incomeBoost, () => {
+      Market.workOnResource(incomeBoost.name, () => {
         jobButton.disabled = false;
       });
     };
@@ -31,7 +38,7 @@ function constructBoosts() {
     const paragraph = document.createElement('p');
     paragraph.innerText = incomeBoost;
     paragraph.onclick = function onClick() {
-      Market.buyAnItem(incomeBoost);
+      Market.buyABusiness(incomeBoost);
 
       paragraph.innerText = incomeBoost;
       constructIncome();
@@ -44,33 +51,70 @@ function constructBoosts() {
 
 function constructManagers() {
   const list = document.querySelector('#managers-options');
-  for (let i = 0, len = managersAvailable.length; i < len; i += 1) {
-    const manager = managersAvailable[i];
+  Object.values(availableManagers.managers).forEach((manager) => {
     const item = document.createElement('li');
     const paragraph = document.createElement('p');
     const hireButton = document.createElement('button');
     hireButton.innerText = 'hire';
-    hireButton.onclick = () => Market.hireManager(manager);
+    hireButton.onclick = () => {
+      debugger;
+      Market.hireManager(manager);
+      Market.orderManagerToWork(manager.incomeSourceUsage);
+    };
     paragraph.innerText = manager;
 
     list.appendChild(item);
     item.appendChild(paragraph);
     item.appendChild(hireButton);
+  });
+}
+
+function update() {
+  constructIncome();
+  constructBusinesses();
+}
+
+const userName = 'Paweł';
+
+function saveGameStatus() {
+  debugger;
+  const {cash, inventory} = user;
+  localStorage.setItem(userName, JSON.stringify({
+    incomeSources: incomeBoosts.sources,
+    user: {cash, inventory, saveTimestamp: Date.now()},
+    availableManagers: availableManagers.managers,
+    employedManagers: employedManagers.managers,
+  }));
+}
+
+window.saveGameStatus = saveGameStatus;
+
+function parseEverythingIfPossible() {
+  debugger;
+  const savedData = localStorage[userName];
+  if (savedData) {
+    const datainJson = JSON.parse(savedData);
+    datainJson.user.loadTimestamp = Date.now();
+    user.parse(datainJson.user);
+    incomeBoosts.parse(datainJson.incomeSources);
+    availableManagers.parse(datainJson.availableManagers);
+    employedManagers.parse(datainJson.employedManagers);
   }
 }
 
-function addHourlyIncome() {
-  // userData.cash += userData.hourlyIncome;
-  constructIncome();
+function orderManagersToWorkIfPossible() {
+  Object.values(employedManagers.managers).forEach((manager) => {
+    Market.orderManagerToWork(manager.incomeSourceUsage);
+  });
 }
 
-constructBoosts();
-constructManagers();
+window.addEventListener('load', () => {
+  parseEverythingIfPossible();
+  Market.produceOfflineIncome();
+  orderManagersToWorkIfPossible();
+  constructBoosts();
+  constructManagers();
+  setInterval(update, SPEED);
+});
 
-function update() {
-  // gameTimeData.tick();
-  constructTimeSection();
-  addHourlyIncome();
-}
-
-setInterval(update, SPEED);
+window.addEventListener('beforeunload', saveGameStatus);

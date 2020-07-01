@@ -5,13 +5,13 @@
     "baseCost": 4,
     "costMultiplier": 1.05,
     "baseProductionTime": 0.5,
-    "timeDecreaseMultiplier": 0.9,
+    "timeDecreaseMultiplier": 0.99,
     "maximumNumberOfThisItem": 20
   },
   {
     "name": "Newspaper Delivery Job",
     "incomeIncrease": 5,
-    "baseCost": 50,
+    "baseCost": 10,
     "costMultiplier": 1.2,
     "baseProductionTime": 1.5,
     "timeDecreaseMultiplier": 0.999,
