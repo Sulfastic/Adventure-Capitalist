@@ -1,0 +1,14 @@
+[
+  {
+    "name": "Lemon Stand",
+    "baseCost": 4,
+    "incomeIncrease": 1,
+    "costMultiplier": 1.05
+  },
+  {
+    "name": "Newspaper Delivery Job",
+    "baseCost": 50,
+    "incomeIncrease": 5,
+    "costMultiplier": 1.2
+  }
+]
