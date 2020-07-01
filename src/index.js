@@ -1,12 +1,11 @@
-import UserData from './data/UserData';
+import userData from './data/UserData';
 import incomeBoosts from './data/IncomeBoosts';
 import managersAvailable from './data/ManagersAvailable';
 import GameTimeData from './data/GameTimeData';
 import Market from './logic/Market';
 
-const SPEED = 500;
+const SPEED = 30 / 1000; // 30 fps
 const gameTimeData = new GameTimeData();
-const userData = new UserData();
 
 function constructTimeSection() {
   document.querySelector('#game-time').innerText = gameTimeData;
@@ -24,7 +23,7 @@ function constructBoosts() {
     jobButton.innerText = 'sell goods';
     jobButton.onclick = () => {
       jobButton.disabled = true;
-      userData.workOnResource(incomeBoost, () => {
+      Market.workOnResource(incomeBoost, () => {
         jobButton.disabled = false;
       });
     };
@@ -32,7 +31,7 @@ function constructBoosts() {
     const paragraph = document.createElement('p');
     paragraph.innerText = incomeBoost;
     paragraph.onclick = function onClick() {
-      Market.buyAnItem(userData, incomeBoost);
+      Market.buyAnItem(incomeBoost);
 
       paragraph.innerText = incomeBoost;
       constructIncome();
@@ -51,7 +50,7 @@ function constructManagers() {
     const paragraph = document.createElement('p');
     const hireButton = document.createElement('button');
     hireButton.innerText = 'hire';
-    hireButton.onclick = () => Market.hireManager(userData, manager);
+    hireButton.onclick = () => Market.hireManager(manager);
     paragraph.innerText = manager;
 
     list.appendChild(item);
@@ -66,6 +65,7 @@ function addHourlyIncome() {
 }
 
 constructBoosts();
+constructManagers();
 
 function update() {
   // gameTimeData.tick();

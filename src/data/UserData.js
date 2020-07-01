@@ -1,27 +1,18 @@
 import InventoryItemsCollection from './InventoryItemsCollection';
 
-export default class UserData {
+class UserData {
   constructor() {
     this.cash = 5;
     this.hourlyIncome = 0;
     this.inventory = {};
   }
 
-  workOnResource({name: resource}, onComplete) {
-    if (this.hasSpecifiedIncomeSource(resource)) {
-      const item = this.inventory[resource];
-      setTimeout(() => {
-        this.cash += item.totalIncome;
-        onComplete();
-      }, item.finalProductionTime * 1000);
-    } else {
-      onComplete();
-      console.log('no such business owned');
-    }
-  }
-
   spendMoney(price) {
     this.cash -= price;
+  }
+
+  earnMoney(money) {
+    this.cash += money;
   }
 
   addItemToInventory({
@@ -58,3 +49,7 @@ export default class UserData {
     return Object.prototype.hasOwnProperty.call(this.inventory, name);
   }
 }
+
+const user = new UserData();
+
+export default user;

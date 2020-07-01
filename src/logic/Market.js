@@ -1,9 +1,24 @@
+import user from '../data/UserData';
+
 export default class Market {
   // registerManager() {
 
   // }
 
-  static buyAnItem(user, incomeSource) {
+  static workOnResource({name: resource}, onComplete) {
+    if (user.hasSpecifiedIncomeSource(resource)) {
+      const item = user.inventory[resource];
+      setTimeout(() => {
+        user.earnMoney(item.totalIncome);
+        onComplete();
+      }, item.finalProductionTime * 1000);
+    } else {
+      onComplete();
+      console.log('no such business owned');
+    }
+  }
+
+  static buyAnItem(incomeSource) {
     if (user.cash >= incomeSource.finalCost) {
       user.spendMoney(incomeSource.finalCost);
       user.addItemToInventory(incomeSource);
@@ -11,9 +26,11 @@ export default class Market {
     }
   }
 
-  static hireManager(user, manager) {
+  static hireManager(manager) {
     if (user.cash >= manager.baseCost) {
       user.spendMoney(manager.baseCost);
+    } else {
+      console.log('no sufficient money');
     }
   }
 }
