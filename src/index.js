@@ -1,7 +1,8 @@
 import UserData from './data/UserData';
 import incomeBoosts from './data/IncomeBoosts';
+import managersAvailable from './data/ManagersAvailable';
 import GameTimeData from './data/GameTimeData';
-import vendor from './logic/Vendor';
+import Market from './logic/Market';
 
 const SPEED = 500;
 const gameTimeData = new GameTimeData();
@@ -18,21 +19,44 @@ function constructIncome() {
 function constructBoosts() {
   const list = document.querySelector('#powerup-options');
   for (let i = 0, len = incomeBoosts.length; i < len; i += 1) {
+    const incomeBoost = incomeBoosts[i];
     const jobButton = document.createElement('button');
     jobButton.innerText = 'sell goods';
-    jobButton.onclick = () => userData.workOnResource(incomeBoosts[i].name);
+    jobButton.onclick = () => {
+      jobButton.disabled = true;
+      userData.workOnResource(incomeBoost, () => {
+        jobButton.disabled = false;
+      });
+    };
     const item = document.createElement('li');
     const paragraph = document.createElement('p');
-    paragraph.innerText = incomeBoosts[i];
+    paragraph.innerText = incomeBoost;
     paragraph.onclick = function onClick() {
-      vendor.buyAnItem(userData, incomeBoosts[i]);
+      Market.buyAnItem(userData, incomeBoost);
 
-      paragraph.innerText = incomeBoosts[i];
+      paragraph.innerText = incomeBoost;
       constructIncome();
     };
     list.appendChild(item);
     item.appendChild(paragraph);
     item.appendChild(jobButton);
+  }
+}
+
+function constructManagers() {
+  const list = document.querySelector('#managers-options');
+  for (let i = 0, len = managersAvailable.length; i < len; i += 1) {
+    const manager = managersAvailable[i];
+    const item = document.createElement('li');
+    const paragraph = document.createElement('p');
+    const hireButton = document.createElement('button');
+    hireButton.innerText = 'hire';
+    hireButton.onclick = () => Market.hireManager(userData, manager);
+    paragraph.innerText = manager;
+
+    list.appendChild(item);
+    item.appendChild(paragraph);
+    item.appendChild(hireButton);
   }
 }
 
@@ -44,7 +68,7 @@ function addHourlyIncome() {
 constructBoosts();
 
 function update() {
-  gameTimeData.tick();
+  // gameTimeData.tick();
   constructTimeSection();
   addHourlyIncome();
 }

@@ -7,20 +7,36 @@ export default class UserData {
     this.inventory = {};
   }
 
-  workOnResource(resource) {
-    this.cash += this.inventory[resource].totalIncome;
+  workOnResource({name: resource}, onComplete) {
+    if (this.hasSpecifiedIncomeSource(resource)) {
+      const item = this.inventory[resource];
+      setTimeout(() => {
+        this.cash += item.totalIncome;
+        onComplete();
+      }, item.finalProductionTime * 1000);
+    } else {
+      onComplete();
+      console.log('no such business owned');
+    }
   }
 
   spendMoney(price) {
     this.cash -= price;
   }
 
-  addItemToInventory({name, incomeIncrease: income}) {
-    if (!Object.prototype.hasOwnProperty.call(this.inventory, name)) {
-      this.inventory[name] = new InventoryItemsCollection(income);
+  addItemToInventory({
+    name: resource,
+    incomeIncrease: income,
+    baseProductionTime,
+    timeDecreaseMultiplier,
+  }) {
+    if (!this.hasSpecifiedIncomeSource(resource)) {
+      this.inventory[resource] = new InventoryItemsCollection(
+        income, baseProductionTime, timeDecreaseMultiplier,
+      );
     }
 
-    this.inventory[name].add();
+    this.inventory[resource].add();
 
     this.updateIncome();
   }
@@ -35,5 +51,10 @@ export default class UserData {
 
   toString() {
     return (`Cash: ${this.cash.toFixed(2)} Hourly Income: ${this.hourlyIncome}`);
+  }
+  // private
+
+  hasSpecifiedIncomeSource(name) {
+    return Object.prototype.hasOwnProperty.call(this.inventory, name);
   }
 }

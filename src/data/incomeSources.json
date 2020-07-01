@@ -1,14 +1,20 @@
 [
   {
     "name": "Lemon Stand",
-    "baseCost": 4,
     "incomeIncrease": 1,
-    "costMultiplier": 1.05
+    "baseCost": 4,
+    "costMultiplier": 1.05,
+    "baseProductionTime": 0.5,
+    "timeDecreaseMultiplier": 0.9,
+    "maximumNumberOfThisItem": 20
   },
   {
     "name": "Newspaper Delivery Job",
-    "baseCost": 50,
     "incomeIncrease": 5,
-    "costMultiplier": 1.2
+    "baseCost": 50,
+    "costMultiplier": 1.2,
+    "baseProductionTime": 1.5,
+    "timeDecreaseMultiplier": 0.999,
+    "maximumNumberOfThisItem": 10
   }
 ]
