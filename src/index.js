@@ -1,10 +1,13 @@
+// import * as PIXI from 'pixi.js';
+
+// eslint-disable-next-line no-unused-vars
+import controller from './logic/Controller';
 import userData from './data/user/UserData';
 import incomeBoosts from './data/income/IncomeBoosts';
 import managersAvailable from './data/managers/ManagersAvailable';
 import GameTimeData from './data/GameTimeData';
 import Market from './logic/Market';
 
-const SPEED = 30 / 1000; // 30 fps
 const gameTimeData = new GameTimeData();
 
 function constructTimeSection() {
@@ -73,4 +76,26 @@ function update() {
   addHourlyIncome();
 }
 
-setInterval(update, SPEED);
+// eventEmitter.on('load/complete', (loader, resources) => {
+//   debugger;
+//   // This creates a texture from a 'bunny.png' image.
+//   const bunny = new PIXI.Sprite(resources.bunny.texture);
+
+//   // Setup the position of the bunny
+//   bunny.x = app.renderer.width / 2;
+//   bunny.y = app.renderer.height / 2;
+
+//   // Rotate around the center
+//   bunny.anchor.x = 0.5;
+//   bunny.anchor.y = 0.5;
+
+//   // Add the bunny to the scene we are building.
+//   app.stage.addChild(bunny);
+
+//   // Listen for frame updates
+//   app.ticker.add(() => {
+//     // each frame we spin the bunny around a bit
+//     bunny.rotation += 0.01;
+//     update();
+//   });
+// });
