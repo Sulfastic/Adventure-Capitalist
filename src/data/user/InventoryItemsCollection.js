@@ -4,18 +4,19 @@ export default class InventoryItemsCollection {
   }
 
   get finalProductionTime() {
-    return this.baseProductionTime * this.timeDecreaseMultiplier;
+    return this.baseProductionTime * this.productionDelayDecreaser;
   }
 
   constructor(income = 0, baseProductionTime = 1, timeDecreaseMultiplier = 1) {
-    this.income = income;
     this.quantity = 0;
+    this.productionDelayDecreaser = 1;
+    this.income = income;
     this.baseProductionTime = baseProductionTime;
     this.timeDecreaseMultiplier = timeDecreaseMultiplier;
   }
 
   add() {
     this.quantity += 1;
-    this.timeDecreaseMultiplier *= this.timeDecreaseMultiplier;
+    this.productionDelayDecreaser *= this.timeDecreaseMultiplier;
   }
 }
