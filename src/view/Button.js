@@ -9,6 +9,18 @@ export default class Button extends PIXI.Container {
     this._init(name, clickHandler, text);
   }
 
+  enable() {
+    this.alpha = 1;
+    this.buttonMode = true;
+    this.interactive = true;
+  }
+
+  disable() {
+    this.alpha = 0.75;
+    this.buttonMode = false;
+    this.interactive = false;
+  }
+
   tap() {
     this.click();
   }
@@ -48,8 +60,6 @@ export default class Button extends PIXI.Container {
     this._clickHandler = clickHandler;
     this._text = text;
 
-    this._createTextures();
-
     this.container = this.addChild(new PIXI.Container());
     this.image = this._createImage();
     this.text = this._createText();
@@ -58,14 +68,8 @@ export default class Button extends PIXI.Container {
     this.anchor = new PIXI.ObservablePoint(() => this._onAnchorChanged(), 0, 0);
   }
 
-  _createTextures() {
-    this.normalTexture = viewStore.texturesCache[`${this._name}01`].texture;
-    this.hoverTexture = viewStore.texturesCache[`${this._name}02`].texture;
-    this.downTexture = viewStore.texturesCache[`${this._name}00`].texture;
-  }
-
   _createImage() {
-    const image = new PIXI.Sprite(this.normalTexture);
+    const image = new PIXI.Sprite(viewStore.texturesCache[this._name].texture);
     image.anchor.set(0.5);
 
     return this.container.addChild(image);
