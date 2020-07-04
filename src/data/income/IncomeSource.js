@@ -5,6 +5,7 @@ export default class IncomeSource {
 
   constructor({
     name = 'Empty Income Source',
+    icon = 'empty',
     incomeIncrease = 1,
     baseCost = 1,
     costMultiplier = 1.01,
@@ -13,6 +14,7 @@ export default class IncomeSource {
     maximumNumberOfThisItem = 1,
   } = {}) {
     this.name = name;
+    this.icon = icon;
     this.incomeIncrease = incomeIncrease;
     this.baseCost = baseCost;
     this.costMultiplier = costMultiplier;
@@ -29,6 +31,6 @@ export default class IncomeSource {
   }
 
   toString() {
-    return (`${this.name}: $ ${this.finalCost.toFixed(2)}, income increase: ${this.incomeIncrease}`);
+    return (`$${this.finalCost.toFixed(2)}, income: $${this.incomeIncrease}`);
   }
 }

@@ -1,38 +1,42 @@
 [
   {
-    "name": "Lemon Stand",
+    "name": "Chockolate bars",
+    "icon": "chock_bar",
     "incomeIncrease": 1,
-    "baseCost": 4,
+    "baseCost": 3.81,
     "costMultiplier": 1.05,
-    "baseProductionTime": 0.5,
+    "baseProductionTime": 1,
     "timeDecreaseMultiplier": 0.99,
     "maximumNumberOfThisItem": 20
   },
   {
-    "name": "Newspaper Delivery Job",
+    "name": "Chockolate coffies",
+    "icon": "coffe_chock",
     "incomeIncrease": 5,
-    "baseCost": 10,
-    "costMultiplier": 1.2,
-    "baseProductionTime": 1.5,
+    "baseCost": 20,
+    "costMultiplier": 1.5,
+    "baseProductionTime": 2,
     "timeDecreaseMultiplier": 0.999,
+    "maximumNumberOfThisItem": 15
+  },
+  {
+    "name": "Ice creams",
+    "icon": "ice_cream",
+    "incomeIncrease": 10,
+    "baseCost": 100,
+    "costMultiplier": 1.75,
+    "baseProductionTime": 4,
+    "timeDecreaseMultiplier": 0.9999,
     "maximumNumberOfThisItem": 10
   },
   {
-    "name": "Zoo Keeping Job",
-    "incomeIncrease": 10,
-    "baseCost": 20,
-    "costMultiplier": 1.35,
-    "baseProductionTime": 3,
-    "timeDecreaseMultiplier": 0.9999,
-    "maximumNumberOfThisItem": 5
-  },
-  {
-    "name": "costam",
-    "incomeIncrease": 10,
-    "baseCost": 20,
-    "costMultiplier": 1.35,
-    "baseProductionTime": 3,
-    "timeDecreaseMultiplier": 0.9999,
+    "name": "Super Market",
+    "icon": "super_market",
+    "incomeIncrease": 25,
+    "baseCost": 250,
+    "costMultiplier": 2,
+    "baseProductionTime": 8,
+    "timeDecreaseMultiplier": 0.99999,
     "maximumNumberOfThisItem": 5
   }
 ]

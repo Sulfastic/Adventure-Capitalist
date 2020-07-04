@@ -1,5 +1,3 @@
-import * as PIXI from 'pixi.js';
-
 export default class BaseFrameView extends PIXI.Container {
   constructor(template) {
     super();
@@ -8,13 +6,14 @@ export default class BaseFrameView extends PIXI.Container {
   }
 
   _init(template) {
+    this._template = template;
     this._frame = this._createFrame();
-    this._name = this._createName(template.name);
+    this._name = this._createName();
   }
 
-  _createFrame() {
+  _createFrame(color = 0xac4c13) {
     const frame = new PIXI.Graphics();
-    frame.beginFill(0xac4c13);
+    frame.beginFill(color);
     frame.drawRoundedRect(
       0,
       0,
@@ -28,10 +27,10 @@ export default class BaseFrameView extends PIXI.Container {
     return this.addChild(frame);
   }
 
-  _createName(name) {
-    const text = new PIXI.Text(name, {});
+  _createName() {
+    const text = new PIXI.Text(this._template.name, {});
     text.anchor.set(0, 0.5);
-    text.y = -45;
+    text.position.set(-25, -45);
 
     return this.addChild(text);
   }

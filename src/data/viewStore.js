@@ -1,4 +1,4 @@
-class ViewStore {
+export default new (class ViewStore {
   setProperty(name, value) {
     Object.defineProperty(this, name, {
       get() {
@@ -6,8 +6,4 @@ class ViewStore {
       },
     });
   }
-}
-
-const viewStore = new ViewStore();
-
-export default viewStore;
+})();

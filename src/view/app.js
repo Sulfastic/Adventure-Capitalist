@@ -1,8 +1,7 @@
 /* eslint-disable no-underscore-dangle */
-import * as PIXI from 'pixi.js';
-import eventEmitter from '../events/eventEmitter';
-import WelcomeScreen from './scene/WelcomeScreen';
-import GameScreen from './scene/GameScreen';
+import ee from '../events/ee';
+import WelcomeScreen from './scene/splash/WelcomeScreen';
+import GameScreen from './scene/game/GameScreen';
 
 if (window.__PIXI_INSPECTOR_GLOBAL_HOOK__) {
   window.__PIXI_INSPECTOR_GLOBAL_HOOK__.register({PIXI});
@@ -22,16 +21,24 @@ class Root extends PIXI.Application {
   }
 }
 
-const app = new Root();
+const app = new Root({backgroundColor: 0xdeb887});
 
 document.body.appendChild(app.view);
 app.view.style.display = 'block';
 app.view.style.margin = 'auto';
 
 app.loader
-  .add('red_button', '/assets/red_button.png')
-  .add('chicken', '/assets/chick.png')
-  .add('market', '/assets/market.jpg')
-  .load((loader, resources) => eventEmitter.emit('load/complete', loader, resources));
+  .add('button', '/assets/button.png')
+  .add('chock_bar', '/assets/chock_bar.png')
+  .add('coffe_chock', '/assets/coffe_chock.png')
+  .add('ice_cream', '/assets/ice_cream.png')
+  .add('super_market', '/assets/super_market.png')
+  .add('empty', '/assets/empty.png')
+  .add('market', '/assets/market.png')
+  .add('manager1', '/assets/manager1.png')
+  .add('manager2', '/assets/manager2.png')
+  .add('manager3', '/assets/manager3.png')
+  .add('manager4', '/assets/manager4.png')
+  .load((loader, resources) => ee.emit('load/complete', loader, resources));
 
 export default app;

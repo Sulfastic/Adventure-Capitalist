@@ -2,7 +2,7 @@
 /* eslint-disable guard-for-in */
 import InventoryItemsCollection from './InventoryItemsCollection';
 
-class UserData {
+export default new (class UserData {
   get saveTimestamp() {
     return this._saveTime;
   }
@@ -99,10 +99,6 @@ class UserData {
   }
 
   toString() {
-    return (`Cash: ${this._cash.toFixed(2)} Hourly Income: ${this._income}`);
+    return (`Cash: $${this._cash.toFixed(2)}`);
   }
-}
-
-const user = new UserData();
-
-export default user;
+})();

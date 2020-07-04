@@ -1,6 +1,7 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   devtool: 'source-map',
@@ -20,6 +21,9 @@ module.exports = {
       {from: 'assets', to: 'assets'},
     ]),
     new CleanWebpackPlugin(),
+    new webpack.ProvidePlugin({
+      PIXI: 'pixi.js',
+    }),
   ],
   optimization: {
     runtimeChunk: 'single',

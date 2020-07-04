@@ -1,6 +1,4 @@
-import * as PIXI from 'pixi.js';
-
-import user from '../../data/user/UserData';
+import user from '../../../data/user/UserData';
 
 export default class UserStatusFrame extends PIXI.Container {
   constructor() {
@@ -21,7 +19,7 @@ export default class UserStatusFrame extends PIXI.Container {
 
   _createFrame() {
     const frame = new PIXI.Graphics();
-    frame.beginFill(0xfff);
+    frame.beginFill(0xfbe6d4);
     frame.drawRoundedRect(
       0,
       0,

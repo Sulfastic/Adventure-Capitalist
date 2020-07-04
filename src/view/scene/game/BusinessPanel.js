@@ -1,12 +1,10 @@
-import * as PIXI from 'pixi.js';
-
-import viewStore from '../../data/viewStore';
-import incomeBoosts from '../../data/income/IncomeBoosts';
+import viewStore from '../../../data/viewStore';
+import incomeBoosts from '../../../data/income/IncomeBoosts';
 import UserStatusFrame from './UserStatusFrame';
 import BusinessView from './BusinessView';
 import ManagerView from './ManagerView';
-import availableManagers from '../../data/managers/ManagersAvailable';
-import employedManagers from '../../data/managers/EmployedManagers';
+import availableManagers from '../../../data/managers/ManagersAvailable';
+import employedManagers from '../../../data/managers/EmployedManagers';
 
 export default class BusinessPanel extends PIXI.Container {
   constructor() {
@@ -31,7 +29,7 @@ export default class BusinessPanel extends PIXI.Container {
 
   _createTransparentFrame() {
     const frame = new PIXI.Graphics();
-    frame.beginFill(0x0574a3);
+    frame.beginFill(0xb9ac92);
     frame.drawRoundedRect(
       0,
       0,

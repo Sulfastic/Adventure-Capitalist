@@ -3,6 +3,7 @@
 import user from '../data/user/UserData';
 import availableManagers from '../data/managers/ManagersAvailable';
 import employedManagers from '../data/managers/EmployedManagers';
+import ee from '../events/ee';
 
 const A_SECOND = 1000;
 
@@ -33,8 +34,10 @@ function _buyABusiness(incomeSource) {
 
 function _workOnResource(name, onComplete) {
   const business = user.getBusinessByName(name);
+  ee.emit(`production/started${name}`, name);
   setTimeout(() => {
     user.earnMoney(business.totalIncome);
+    ee.emit(`production/finished${name}`, name);
     onComplete();
   }, business.finalProductionTime * A_SECOND);
 }
@@ -62,6 +65,7 @@ export default class Market {
   static buyABusiness(incomeSource) {
     if (_canUserAfford(incomeSource.finalCost)) {
       _buyABusiness(incomeSource);
+      ee.emit(`${incomeSource.name}/bought`);
     }
   }
 
@@ -75,6 +79,12 @@ export default class Market {
 
   static orderManagerToWork(incomeSourceUsage) {
     Market.workOnResource(incomeSourceUsage, () => Market.orderManagerToWork(incomeSourceUsage));
+  }
+
+  static forceOrderManagersToWork() {
+    Object.values(employedManagers.managers).forEach((manager) => {
+      Market.orderManagerToWork(manager.incomeSourceUsage);
+    });
   }
 
   static produceOfflineIncome() {

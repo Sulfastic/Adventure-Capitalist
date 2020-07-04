@@ -1,12 +1,26 @@
 [
   {
-    "name": "Lemon Stand Manager",
-    "incomeSourceUsage": "Lemon Stand",
-    "baseCost": 10
+    "name": "Chockolate bars Manager",
+    "incomeSourceUsage": "Chockolate bars",
+    "icon": "manager1",
+    "baseCost": 500
   },
   {
-    "name": "Newspaper Delivery Job Manager",
-    "incomeSourceUsage": "Newspaper Delivery Job",
-    "baseCost": 15
+    "name": "Chockolate coffies Manager",
+    "incomeSourceUsage": "Chockolate coffies",
+    "icon": "manager2",
+    "baseCost": 1000
+  },
+  {
+    "name": "Ice creams Manager",
+    "incomeSourceUsage": "Ice creams",
+    "icon": "manager3",
+    "baseCost": 2000
+  },
+  {
+    "name": "Super Market Manager",
+    "incomeSourceUsage": "Super Market",
+    "icon": "manager4",
+    "baseCost": 4000
   }
 ]

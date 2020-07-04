@@ -1,7 +1,5 @@
-import * as PIXI from 'pixi.js';
-
 import BusinessPanel from './BusinessPanel';
-import viewStore from '../../data/viewStore';
+import viewStore from '../../../data/viewStore';
 
 export default class GameScreen extends PIXI.Container {
   constructor() {
@@ -19,6 +17,7 @@ export default class GameScreen extends PIXI.Container {
     // eslint-disable-next-line dot-notation
     const background = new PIXI.Sprite(viewStore.texturesCache['market'].texture);
     background.anchor.set(0.5);
+    background.position.set(viewStore.screenSize.width * 0.5, viewStore.screenSize.height * 0.5);
 
     return this.addChild(background);
   }
