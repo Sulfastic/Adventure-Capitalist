@@ -1,8 +1,8 @@
 import Button from '../../components/Button';
 import BaseFrameView from './BaseFrameView';
 import ee from '../../../events/ee';
-import viewStore from '../../../data/viewStore';
-import availableManagers from '../../../data/managers/ManagersAvailable';
+import viewStore from '../../../data/view/viewStore';
+import availableManagers from '../../../data/managers/AvailableManagers';
 import user from '../../../data/user/UserData';
 import ProgressBar from './ProgressBar';
 
@@ -71,7 +71,7 @@ export default class ManagerView extends BaseFrameView {
   }
 
   _isAvailableManager() {
-    return availableManagers._managers[this._template.name];
+    return availableManagers.managers[this._template.name];
   }
 
   _hasBusiness() {

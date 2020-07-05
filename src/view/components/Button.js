@@ -1,6 +1,6 @@
 import sound from 'pixi-sound';
 
-import viewStore from '../../data/viewStore';
+import viewStore from '../../data/view/viewStore';
 
 export default class Button extends PIXI.Container {
   constructor(name, clickHandler, text = '') {
@@ -85,16 +85,11 @@ export default class Button extends PIXI.Container {
   }
 
   _createText() {
-    const text = new PIXI.Text(this._text, this._getTextStyle());
+    const text = new PIXI.Text(this._text);
     text.anchor.set(0.5);
     text.position.x = -1; // default button texture is not evenly placed on canvas :/
 
     return this.container.addChild(text);
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  _getTextStyle() {
-    return {};
   }
 
   _onAnchorChanged() {

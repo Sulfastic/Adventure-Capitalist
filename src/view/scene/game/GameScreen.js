@@ -1,6 +1,6 @@
 import sound from 'pixi-sound';
 import BusinessPanel from './BusinessPanel';
-import viewStore from '../../../data/viewStore';
+import viewStore from '../../../data/view/viewStore';
 
 export default class GameScreen extends PIXI.Container {
   constructor() {

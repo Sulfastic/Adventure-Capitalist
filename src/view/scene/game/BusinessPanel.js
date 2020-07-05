@@ -1,9 +1,9 @@
-import viewStore from '../../../data/viewStore';
+import viewStore from '../../../data/view/viewStore';
 import incomeBoosts from '../../../data/income/IncomeBoosts';
 import UserStatusFrame from './UserStatusFrame';
 import BusinessView from './BusinessView';
 import ManagerView from './ManagerView';
-import availableManagers from '../../../data/managers/ManagersAvailable';
+import availableManagers from '../../../data/managers/AvailableManagers';
 import employedManagers from '../../../data/managers/EmployedManagers';
 
 export default class BusinessPanel extends PIXI.Container {

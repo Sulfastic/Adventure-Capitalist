@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import {TweenMax} from 'gsap';
 import user from '../data/user/UserData';
-import availableManagers from '../data/managers/ManagersAvailable';
+import availableManagers from '../data/managers/AvailableManagers';
 import employedManagers from '../data/managers/EmployedManagers';
 import ee from '../events/ee';
 
@@ -67,7 +67,6 @@ export default class Market {
       _workOnResource(resource, onComplete);
     } else {
       onComplete();
-      console.log('no such business owned');
     }
   }
 
@@ -76,7 +75,6 @@ export default class Market {
       _workOnResource(resource, onComplete, 'manager');
     } else {
       onComplete();
-      console.log('no such business owned');
     }
   }
 

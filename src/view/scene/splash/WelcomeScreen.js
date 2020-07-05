@@ -1,4 +1,4 @@
-import viewStore from '../../../data/viewStore';
+import viewStore from '../../../data/view/viewStore';
 import Button from '../../components/Button';
 
 export default class WelcomeScreen extends PIXI.Container {

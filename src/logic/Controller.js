@@ -1,10 +1,10 @@
 import ee from '../events/ee';
-import viewStore from '../data/viewStore';
+import viewStore from '../data/view/viewStore';
 import app from '../view/app';
 import Market from './Market';
 import user from '../data/user/UserData';
 import incomeBoosts from '../data/income/IncomeBoosts';
-import availableManagers from '../data/managers/ManagersAvailable';
+import availableManagers from '../data/managers/AvailableManagers';
 import employedManagers from '../data/managers/EmployedManagers';
 
 function _parseData() {
