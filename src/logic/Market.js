@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-
+import {TweenMax} from 'gsap';
 import user from '../data/user/UserData';
 import availableManagers from '../data/managers/ManagersAvailable';
 import employedManagers from '../data/managers/EmployedManagers';
@@ -32,14 +32,23 @@ function _buyABusiness(incomeSource) {
   incomeSource.sellAnItem();
 }
 
-function _workOnResource(name, onComplete) {
+function _workOnResource(name, onComplete, eventSuffix = '') {
   const business = user.getBusinessByName(name);
-  ee.emit(`production/started${name}`, name);
-  setTimeout(() => {
-    user.earnMoney(business.totalIncome);
-    ee.emit(`production/finished${name}`, name);
-    onComplete();
-  }, business.finalProductionTime * A_SECOND);
+  const progress = {value: 0};
+  TweenMax.to(progress, business.finalProductionTime, {
+    value: business.finalProductionTime,
+    ease: 'none',
+    onStart: () => ee.emit(`${eventSuffix}production/started${name}`, name),
+    onUpdate: () => {
+      const val = Math.max(0, Math.min(1, progress.value / business.finalProductionTime));
+      ee.emit(`${eventSuffix}production/progress${name}`, val, name);
+    },
+    onComplete: () => {
+      user.earnMoney(business.totalIncome);
+      ee.emit(`${eventSuffix}production/finished${name}`, name);
+      onComplete();
+    },
+  });
 }
 
 function _produceOfflineIncome(time) {
@@ -53,9 +62,18 @@ function _produceOfflineIncome(time) {
 }
 
 export default class Market {
-  static workOnResource(resource, onComplete) {
+  static manualWorkOnResource(resource, onComplete) {
     if (_doesUserHaveGivenResource(resource)) {
       _workOnResource(resource, onComplete);
+    } else {
+      onComplete();
+      console.log('no such business owned');
+    }
+  }
+
+  static managerWorkOnResource(resource, onComplete) {
+    if (_doesUserHaveGivenResource(resource)) {
+      _workOnResource(resource, onComplete, 'manager');
     } else {
       onComplete();
       console.log('no such business owned');
@@ -72,13 +90,14 @@ export default class Market {
   static hireManager(manager) {
     if (_canHireManager(manager)) {
       _hireManager(manager);
-    } else {
-      console.log('cannot hire manager: no sufficient money or no such business owned');
     }
   }
 
   static orderManagerToWork(incomeSourceUsage) {
-    Market.workOnResource(incomeSourceUsage, () => Market.orderManagerToWork(incomeSourceUsage));
+    Market.managerWorkOnResource(
+      incomeSourceUsage,
+      () => Market.orderManagerToWork(incomeSourceUsage),
+    );
   }
 
   static forceOrderManagersToWork() {

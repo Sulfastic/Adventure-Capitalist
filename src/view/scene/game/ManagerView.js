@@ -4,6 +4,7 @@ import ee from '../../../events/ee';
 import viewStore from '../../../data/viewStore';
 import availableManagers from '../../../data/managers/ManagersAvailable';
 import user from '../../../data/user/UserData';
+import ProgressBar from './ProgressBar';
 
 export default class ManagerView extends BaseFrameView {
   updateTransform() {
@@ -21,7 +22,12 @@ export default class ManagerView extends BaseFrameView {
     super._init(manager);
 
     this._hireButton = this._createHireButton(manager);
+    this._progressBar = this._createProgressBar();
     this._managerImage = this._createManagerImage(manager);
+
+    ee.on(`managerproduction/progress${manager.incomeSourceUsage}`, (value) => {
+      this._progressBar.progress = value;
+    });
   }
 
   _createHireButton(manager) {
@@ -34,6 +40,14 @@ export default class ManagerView extends BaseFrameView {
     }
 
     return this.addChild(button);
+  }
+
+  _createProgressBar() {
+    const progressBar = new ProgressBar();
+    progressBar.position.set(38, -21);
+    progressBar.scale.x = 1.15;
+
+    return this.addChild(progressBar);
   }
 
   _createManagerImage({icon}) {

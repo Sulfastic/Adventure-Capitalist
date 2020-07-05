@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import ee from '../events/ee';
 import WelcomeScreen from './scene/splash/WelcomeScreen';
 import GameScreen from './scene/game/GameScreen';

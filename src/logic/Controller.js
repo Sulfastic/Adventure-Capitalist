@@ -71,7 +71,7 @@ function _onBuyBusiness(business) {
 }
 
 function _onProduce({name}, onComplete) {
-  Market.workOnResource(name, onComplete);
+  Market.manualWorkOnResource(name, onComplete);
 }
 
 function _onHireManager(manager) {
