@@ -20,6 +20,9 @@ module.exports = {
     new CopyWebpackPlugin([
       {from: 'assets', to: 'assets'},
     ]),
+    new CopyWebpackPlugin([
+      {from: 'sounds', to: 'sounds'},
+    ]),
     new CleanWebpackPlugin(),
     new webpack.ProvidePlugin({
       PIXI: 'pixi.js',

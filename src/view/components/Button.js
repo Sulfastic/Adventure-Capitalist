@@ -1,3 +1,5 @@
+import sound from 'pixi-sound';
+
 import viewStore from '../../data/viewStore';
 
 export default class Button extends PIXI.Container {
@@ -31,6 +33,7 @@ export default class Button extends PIXI.Container {
 
   click() {
     this._clickHandler();
+    sound.play('click1', {loop: false});
   }
 
   mouseover() {

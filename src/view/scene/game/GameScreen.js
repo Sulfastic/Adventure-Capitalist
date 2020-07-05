@@ -1,3 +1,4 @@
+import sound from 'pixi-sound';
 import BusinessPanel from './BusinessPanel';
 import viewStore from '../../../data/viewStore';
 
@@ -9,6 +10,7 @@ export default class GameScreen extends PIXI.Container {
   }
 
   _init() {
+    sound.play('music', {loop: true});
     this._background = this._createBackground();
     this._businessPanel = this._createBusinessPanel();
   }

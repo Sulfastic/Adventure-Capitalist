@@ -39,6 +39,8 @@ app.loader
   .add('manager2', '/assets/manager2.png')
   .add('manager3', '/assets/manager3.png')
   .add('manager4', '/assets/manager4.png')
+  .add('music', '/sounds/music.mp3')
+  .add('click1', '/sounds/click1.ogg')
   .load((loader, resources) => ee.emit('load/complete', loader, resources));
 
 export default app;
